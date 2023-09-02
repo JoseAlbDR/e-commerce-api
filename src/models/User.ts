@@ -5,6 +5,8 @@ const UserSchema = new mongoose.Schema<IUser>({
   name: {
     type: String,
     required: [true, "User Name is required"],
+    minlength: 3,
+    maxlength: 50,
   },
   email: {
     type: String,
@@ -14,6 +16,12 @@ const UserSchema = new mongoose.Schema<IUser>({
   password: {
     type: String,
     required: [true, "User Password is required"],
+    minlength: 6,
+  },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
   },
 });
 
