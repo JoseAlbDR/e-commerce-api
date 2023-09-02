@@ -7,13 +7,14 @@ import errorHandlerMiddleware from "./middleware/error-handler";
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-app.use(errorHandlerMiddleware);
-app.use(notFoundMiddleware);
+app.use(express.json());
 
 app.get("/", (_req, res) => {
   res.send("E-Commerce API");
 });
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   await dbConnect();
