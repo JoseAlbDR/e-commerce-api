@@ -1,4 +1,13 @@
 import { MongoError } from "mongodb";
+
+// User Interfaces
+
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
 // Error interfaces
 export interface IDuplicateMongoError extends MongoError {
   keyValue: {
