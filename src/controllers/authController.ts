@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
-export const registerController = (_req: Request, res: Response) => {
-  res.send("Register controller");
+import { IUserRequest } from "../types/interfaces";
+import { User } from "../models/User";
+export const registerController = async (req: IUserRequest, res: Response) => {
+  const newUser = await User.create(req.body);
+  res.json(newUser);
 };
 
 export const loginController = (_req: Request, res: Response) => {

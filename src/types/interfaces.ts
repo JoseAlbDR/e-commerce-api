@@ -8,6 +8,10 @@ export interface IUser {
   password: string;
 }
 
+export interface IUserRequest {
+  body: IUser;
+}
+
 // Error interfaces
 export interface IDuplicateMongoError extends MongoError {
   keyValue: {
