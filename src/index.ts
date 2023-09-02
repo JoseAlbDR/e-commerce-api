@@ -5,9 +5,12 @@ import dbConnect from "./db/connect";
 import notFoundMiddleware from "./middleware/not-found";
 import errorHandlerMiddleware from "./middleware/error-handler";
 import authRouter from "./routes/authRoutes";
+import morgan from "morgan";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(morgan("tiny"));
 app.use(express.json());
 
 app.get("/", (_req, res) => {
