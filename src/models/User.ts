@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { IUser } from "../types/interfaces";
+import validator from "validator";
 
 const UserSchema = new mongoose.Schema<IUser>({
   name: {
@@ -11,6 +12,12 @@ const UserSchema = new mongoose.Schema<IUser>({
   email: {
     type: String,
     required: [true, "User Email is required"],
+    validate: {
+      validator: function (value: string) {
+        return validator.isEmail(value);
+      },
+      message: "Please provide valid email",
+    },
     unique: true,
   },
   password: {
