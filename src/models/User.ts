@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 import { IUser } from "../types/interfaces";
 import validator from "validator";
 
@@ -31,6 +32,13 @@ const UserSchema = new mongoose.Schema<IUser>({
     },
     default: "user",
   },
+});
+
+UserSchema.pre("save", async function () {
+  console.log(this.modifiedPaths());
+  const salt = await bcrypt.genSalt(10);
+  const hashedPass = await bcrypt.hash(this.password, salt);
+  this.password = hashedPass;
 });
 
 export const User = mongoose.model<IUser>("User", UserSchema);
