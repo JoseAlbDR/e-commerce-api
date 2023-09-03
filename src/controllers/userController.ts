@@ -8,7 +8,7 @@ export const getAllUsers = async (_req: Request, res: Response) => {
   const users = await User.find({ role: "user" });
 
   const resultUsers = users.map(({ name, _id, email, role }) => {
-    return { _id, name, email, role };
+    return { userId: _id, name, email, role };
   });
 
   res.status(StatusCodes.OK).json({ users: resultUsers });
@@ -22,7 +22,14 @@ export const getSingleUser = async (req: ISingleUserRequest, res: Response) => {
     throw new NotFoundError("User not found");
   }
 
-  res.status(StatusCodes.OK).json({ user });
+  res.status(StatusCodes.OK).json({
+    user: {
+      userId: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  });
 };
 export const showCurrentUser = async (_req: Request, res: Response) => {
   res.send("Show Current User");
