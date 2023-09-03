@@ -19,6 +19,11 @@ app.get("/", (_req, res) => {
   res.send("E-Commerce API");
 });
 
+app.get("/api/v1", (req, res) => {
+  console.log(req.cookies);
+  res.send("E-Commerce API");
+});
+
 app.use("/api/v1/auth", authRouter);
 
 app.use(notFoundMiddleware);
