@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { ITokenUser, IUserRequest } from "../types/interfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
-import { createJWT } from "../utils";
+import { attachCookiesToResponse } from "../utils";
+
 export const registerController = async (req: IUserRequest, res: Response) => {
   const { name, email, password } = req.body;
 
@@ -17,13 +18,7 @@ export const registerController = async (req: IUserRequest, res: Response) => {
     role: newUser.role,
   };
 
-  const token = createJWT(tokenUser);
-  const oneDay = 1000 * 60 * 60 * 24;
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + oneDay),
-  });
+  const token = attachCookiesToResponse(res, tokenUser);
 
   res.status(StatusCodes.CREATED).json({ user: tokenUser, token });
 };
