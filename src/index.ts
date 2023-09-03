@@ -13,14 +13,15 @@ const port = process.env.PORT || 3000;
 
 app.use(morgan("tiny"));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get("/", (_req, res) => {
   res.send("E-Commerce API");
 });
 
 app.get("/api/v1", (req, res) => {
-  console.log(req.cookies);
+  // console.log(req.cookies);
+  console.log(req.signedCookies);
   res.send("E-Commerce API");
 });
 
