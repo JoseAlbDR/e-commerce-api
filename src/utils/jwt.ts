@@ -19,5 +19,4 @@ export const attachCookiesToResponse = ({ res, user }: IAttachCookies) => {
     httpOnly: true,
     expires: new Date(Date.now() + oneDay),
   });
-  return token;
 };
