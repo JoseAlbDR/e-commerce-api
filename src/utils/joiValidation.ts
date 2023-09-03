@@ -18,3 +18,21 @@
 //     },
 //   });
 // };
+
+import Joi from "joi";
+import { ILogin } from "../types/interfaces";
+
+export const validateLogin = (query: unknown) => {
+  const loginSchema = Joi.object<ILogin>({
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+  });
+
+  return loginSchema.validate(query, {
+    errors: { wrap: { label: false } },
+    messages: {
+      "object.unknown": "Unknown parameter: {#key}",
+      "any.required": "Please provide {#key}",
+    },
+  });
+};
