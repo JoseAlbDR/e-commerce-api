@@ -36,11 +36,13 @@ export interface IUserRequest {
   body: IUser;
 }
 
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
 export interface ILoginRequest {
-  body: {
-    email: string;
-    password: string;
-  };
+  body: ILogin;
 }
 
 // Error interfaces
