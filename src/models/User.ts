@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import {
-  ITokenUser,
-  IUser,
-  IUserMethods,
-  IUserModel,
-} from "../types/interfaces";
+import { IUser, IUserMethods, IUserModel } from "../types/interfaces";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema<IUser, IUserModel, IUserMethods>({
@@ -46,15 +40,6 @@ UserSchema.pre("save", async function () {
   const hashedPass = await bcrypt.hash(this.password, salt);
   this.password = hashedPass;
 });
-
-UserSchema.methods.createJWT = function (
-  this: IUser,
-  tokenUser: ITokenUser
-): string {
-  return jwt.sign({ tokenUser }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_LIFETIME,
-  });
-};
 
 UserSchema.methods.checkPassword = async function (
   this: IUser,

@@ -5,7 +5,6 @@ import mongoose, { Model } from "mongoose";
 export type IUserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
 
 export interface IUserMethods {
-  createJWT(tokenUser: ITokenUser): string;
   checkPassword(candidatePassword: string): Promise<boolean>;
 }
 
