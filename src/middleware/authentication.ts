@@ -7,11 +7,7 @@ const authenticationMiddleware = async (
   _res: Response,
   next: NextFunction
 ) => {
-  const cookies: Record<string, string> = req.signedCookies as Record<
-    string,
-    string
-  >;
-  const token = cookies.token;
+  const { token } = req.signedCookies as Record<string, string>;
 
   if (!token) {
     throw new UnauthenticatedError("Authentication invalid");
