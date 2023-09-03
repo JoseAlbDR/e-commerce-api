@@ -20,7 +20,7 @@
 // };
 
 import Joi from "joi";
-import { ILogin } from "../types/errorInterfaces";
+import { ILogin } from "../types/authInterfaces";
 
 export const validateLogin = (query: unknown) => {
   const loginSchema = Joi.object<ILogin>({

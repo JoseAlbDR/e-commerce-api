@@ -2,10 +2,10 @@
   "name": "jobs-api",
   "version": "1.0.0",
   "description": "Jobs API",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "tsc": "tsc",
-    "dev": "ts-node-dev --files src/index.ts",
+    "dev": "ts-node-dev --files src/app.ts",
     "lint": "eslint --ext .ts ."
   },
   "repository": {

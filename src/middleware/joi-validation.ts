@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ILogin } from "../types/errorInterfaces";
+import { ILogin } from "../types/authInterfaces";
 import { BadRequestError } from "../errors";
 import Joi from "joi";
 
