@@ -56,6 +56,7 @@ export const loginController = async (req: ILoginRequest, res: Response) => {
 
 export const logoutController = (_req: Request, res: Response) => {
   res.cookie("token", "logout", {
+    httpOnly: true,
     expires: new Date(Date.now()),
   });
   res.sendStatus(StatusCodes.OK);
