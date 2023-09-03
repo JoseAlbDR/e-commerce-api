@@ -1,5 +1,6 @@
 import { MongoError } from "mongodb";
 import mongoose, { Model } from "mongoose";
+import { Response } from "express";
 
 // User Interfaces
 export type IUserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
@@ -12,6 +13,15 @@ export interface ITokenUser {
   userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   name: string;
   role: "admin" | "user";
+}
+
+export interface ITokenUserPayload {
+  payload: ITokenUser;
+}
+
+export interface IAttachCookies {
+  res: Response;
+  user: ITokenUser;
 }
 
 export interface IUser {

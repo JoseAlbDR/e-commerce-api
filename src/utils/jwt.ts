@@ -1,9 +1,8 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { ITokenUser } from "../types/interfaces";
-import { Response } from "express";
+import { IAttachCookies, ITokenUserPayload } from "../types/interfaces";
 
-export const createJWT = (payload: ITokenUser): string => {
+export const createJWT = ({ payload }: ITokenUserPayload): string => {
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIFETIME,
   });
@@ -13,11 +12,8 @@ export const createJWT = (payload: ITokenUser): string => {
 export const isTokenValid = (token: string) =>
   jwt.verify(token, process.env.JWT_SECRET);
 
-export const attachCookiesToResponse = (
-  res: Response,
-  tokenUser: ITokenUser
-) => {
-  const token = createJWT(tokenUser);
+export const attachCookiesToResponse = ({ res, user }: IAttachCookies) => {
+  const token = createJWT({ payload: user });
   const oneDay = 1000 * 60 * 60 * 24;
   res.cookie("token", token, {
     httpOnly: true,

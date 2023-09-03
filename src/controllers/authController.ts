@@ -18,7 +18,7 @@ export const registerController = async (req: IUserRequest, res: Response) => {
     role: newUser.role,
   };
 
-  const token = attachCookiesToResponse(res, tokenUser);
+  const token = attachCookiesToResponse({ res, user: tokenUser });
 
   res.status(StatusCodes.CREATED).json({ user: tokenUser, token });
 };
