@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { IUser, IUserMethods, IUserModel } from "../types/interfaces";
+import { IUser, IUserMethods, IUserModel } from "../types/authInterfaces";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema<IUser, IUserModel, IUserMethods>({

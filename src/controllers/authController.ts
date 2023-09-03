@@ -3,7 +3,7 @@ import {
   ILoginRequest,
   IResponseUser,
   IUserRequest,
-} from "../types/interfaces";
+} from "../types/authInterfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { attachCookiesToResponse } from "../utils";

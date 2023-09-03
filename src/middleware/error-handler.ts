@@ -6,7 +6,7 @@ import {
   ICastMongoError,
   IDuplicateMongoError,
   IRequiredMongoError,
-} from "../types/interfaces";
+} from "../types/errorInterfaces";
 import { Error } from "mongoose";
 
 const errorHandlerMiddleware = (

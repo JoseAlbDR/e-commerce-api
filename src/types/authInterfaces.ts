@@ -1,8 +1,6 @@
-import { MongoError } from "mongodb";
 import mongoose, { Model } from "mongoose";
 import { Response } from "express";
 
-// User Interfaces
 export type IUserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
 
 export interface IUserMethods {
@@ -43,24 +41,4 @@ export interface ILogin {
 
 export interface ILoginRequest {
   body: ILogin;
-}
-
-// Error interfaces
-export interface IDuplicateMongoError extends MongoError {
-  keyValue: {
-    [x: string]: string;
-  };
-}
-
-export interface IRequiredMongoError extends MongoError {
-  errors: {
-    [x: string]:
-      | { [y: string]: string }
-      | { [y: string]: { [z: string]: string } };
-  };
-}
-
-export interface ICastMongoError extends MongoError {
-  reason: { [x: string]: string };
-  value: string;
 }
