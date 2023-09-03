@@ -2,7 +2,7 @@ import { MongoError } from "mongodb";
 import mongoose, { Model } from "mongoose";
 
 // User Interfaces
-export type UserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
+export type IUserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
 
 export interface IUserMethods {
   createJWT(): string;
