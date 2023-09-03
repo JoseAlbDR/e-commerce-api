@@ -7,7 +7,11 @@ import { NotFoundError } from "../errors";
 export const getAllUsers = async (_req: Request, res: Response) => {
   const users = await User.find({ role: "user" });
 
-  res.status(StatusCodes.OK).json({ users });
+  const resultUsers = users.map(({ name, _id, email, role }) => {
+    return { _id, name, email, role };
+  });
+
+  res.status(StatusCodes.OK).json({ users: resultUsers });
 };
 export const getSingleUser = async (req: ISingleUserRequest, res: Response) => {
   const { id } = req.params;
