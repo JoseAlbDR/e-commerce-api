@@ -9,19 +9,19 @@ export interface IUserMethods {
   checkPassword(candidatePassword: string): Promise<boolean>;
 }
 
-export interface ITokenUser {
+export interface IResponseUser {
   userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   name: string;
   role: "admin" | "user";
 }
 
 export interface ITokenUserPayload {
-  payload: ITokenUser;
+  payload: IResponseUser;
 }
 
 export interface IAttachCookies {
   res: Response;
-  user: ITokenUser;
+  user: IResponseUser;
 }
 
 export interface IUser {

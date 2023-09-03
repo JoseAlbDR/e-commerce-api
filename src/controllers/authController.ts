@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { ILoginRequest, ITokenUser, IUserRequest } from "../types/interfaces";
+import {
+  ILoginRequest,
+  IResponseUser,
+  IUserRequest,
+} from "../types/interfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { attachCookiesToResponse } from "../utils";
@@ -13,7 +17,7 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   const role = isFirstAccount ? "admin" : "user";
 
   const newUser = await User.create({ name, email, password, role });
-  const registeredUser: ITokenUser = {
+  const registeredUser: IResponseUser = {
     name: newUser.name,
     userId: newUser._id,
     role: newUser.role,
@@ -39,7 +43,7 @@ export const loginController = async (req: ILoginRequest, res: Response) => {
     throw new UnauthenticatedError("Invalid password");
   }
 
-  const loguedUser: ITokenUser = {
+  const loguedUser: IResponseUser = {
     name: user.name,
     userId: user._id,
     role: user.role,
