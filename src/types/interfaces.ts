@@ -5,8 +5,14 @@ import mongoose, { Model } from "mongoose";
 export type IUserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
 
 export interface IUserMethods {
-  createJWT(): string;
+  createJWT(tokenUser: ITokenUser): string;
   checkPassword(candidatePassword: string): Promise<boolean>;
+}
+
+export interface ITokenUser {
+  userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+  name: string;
+  role: "admin" | "user";
 }
 
 export interface IUser {

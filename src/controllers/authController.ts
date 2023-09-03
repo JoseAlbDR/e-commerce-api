@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IUserRequest } from "../types/interfaces";
+import { ITokenUser, IUserRequest } from "../types/interfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 export const registerController = async (req: IUserRequest, res: Response) => {
@@ -9,11 +9,14 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   const isFirstAccount = (await User.countDocuments({})) === 0;
   const role = isFirstAccount ? "admin" : "user";
   const newUser = await User.create({ name, email, password, role });
+  const tokenUser: ITokenUser = {
+    name: newUser.name,
+    userId: newUser._id,
+    role: newUser.role,
+  };
 
-  const token = newUser.createJWT();
-  res
-    .status(StatusCodes.CREATED)
-    .json({ name: newUser.name, email: newUser.email, token });
+  const token = newUser.createJWT(tokenUser);
+  res.status(StatusCodes.CREATED).json({ name: newUser.name, token });
 };
 
 export const loginController = (_req: Request, res: Response) => {
