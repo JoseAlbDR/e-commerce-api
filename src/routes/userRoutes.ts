@@ -10,11 +10,11 @@ import {
 
 const router = express.Router();
 
-router.route("/").get(getAllUsers);
+router.route("/").get(authenticationMiddleware, getAllUsers);
 
 router.route("/showMe").get(authenticationMiddleware, showCurrentUser);
-router.route("/updateUser").post(updateUser);
-router.route("/updateUserPassword").post(updateUserPassword);
+router.route("/updateUser").patch(updateUser);
+router.route("/updateUserPassword").patch(updateUserPassword);
 
 router.route("/:id").get(getSingleUser);
 
