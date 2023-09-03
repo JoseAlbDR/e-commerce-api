@@ -8,9 +8,12 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   // first registered user is an admin
   const isFirstAccount = (await User.countDocuments({})) === 0;
   const role = isFirstAccount ? "admin" : "user";
-
   const newUser = await User.create({ name, email, password, role });
-  res.status(StatusCodes.CREATED).json(newUser);
+
+  const token = newUser.createJWT();
+  res
+    .status(StatusCodes.CREATED)
+    .json({ name: newUser.name, email: newUser.email, token });
 };
 
 export const loginController = (_req: Request, res: Response) => {
