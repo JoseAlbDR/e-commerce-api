@@ -1,8 +1,16 @@
 import { MongoError } from "mongodb";
+import mongoose, { Model } from "mongoose";
 
 // User Interfaces
+export type UserModel = Model<IUser, { [_ in never]: never }, IUserMethods>;
+
+export interface IUserMethods {
+  createJWT(): string;
+  checkPassword(candidatePassword: string): Promise<boolean>;
+}
 
 export interface IUser {
+  _id: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   name: string;
   email: string;
   password: string;

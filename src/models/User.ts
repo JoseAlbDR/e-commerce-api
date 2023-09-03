@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { IUser } from "../types/interfaces";
+import jwt from "jsonwebtoken";
+import { IUser, IUserMethods, UserModel } from "../types/interfaces";
 import validator from "validator";
 
-const UserSchema = new mongoose.Schema<IUser>({
+const UserSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
   name: {
     type: String,
     required: [true, "User Name is required"],
@@ -40,5 +41,23 @@ UserSchema.pre("save", async function () {
   const hashedPass = await bcrypt.hash(this.password, salt);
   this.password = hashedPass;
 });
+
+UserSchema.methods.createJWT = function (this: IUser): string {
+  return jwt.sign(
+    { userId: this._id, username: this.name },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_LIFETIME,
+    }
+  );
+};
+
+UserSchema.methods.checkPassword = async function (
+  this: IUser,
+  candidatePassword: string
+) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password);
+  return isMatch;
+};
 
 export const User = mongoose.model<IUser>("User", UserSchema);
