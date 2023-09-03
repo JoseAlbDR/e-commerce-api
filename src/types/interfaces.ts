@@ -36,6 +36,13 @@ export interface IUserRequest {
   body: IUser;
 }
 
+export interface ILoginRequest {
+  body: {
+    email: string;
+    password: string;
+  };
+}
+
 // Error interfaces
 export interface IDuplicateMongoError extends MongoError {
   keyValue: {

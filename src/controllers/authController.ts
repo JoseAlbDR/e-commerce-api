@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { ITokenUser, IUserRequest } from "../types/interfaces";
+import { ILoginRequest, ITokenUser, IUserRequest } from "../types/interfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { attachCookiesToResponse } from "../utils";
+import { UnauthenticatedError } from "../errors";
 
 export const registerController = async (req: IUserRequest, res: Response) => {
   const { name, email, password } = req.body;
@@ -12,19 +13,41 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   const role = isFirstAccount ? "admin" : "user";
 
   const newUser = await User.create({ name, email, password, role });
-  const tokenUser: ITokenUser = {
+  const registeredUser: ITokenUser = {
     name: newUser.name,
     userId: newUser._id,
     role: newUser.role,
   };
 
-  attachCookiesToResponse({ res, user: tokenUser });
+  attachCookiesToResponse({ res, user: registeredUser });
 
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  res.status(StatusCodes.CREATED).json({ user: registeredUser });
 };
 
-export const loginController = (_req: Request, res: Response) => {
-  res.send("Login controller");
+export const loginController = async (req: ILoginRequest, res: Response) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email: email });
+
+  if (!user) {
+    throw new UnauthenticatedError("Invalid email");
+  }
+
+  const isPasswordCorrect = await user.checkPassword(password);
+
+  if (!isPasswordCorrect) {
+    throw new UnauthenticatedError("Invalid password");
+  }
+
+  const loguedUser: ITokenUser = {
+    name: user.name,
+    userId: user._id,
+    role: user.role,
+  };
+
+  attachCookiesToResponse({ res, user: loguedUser });
+
+  res.status(StatusCodes.OK).json({ user: loguedUser });
 };
 
 export const logoutController = (_req: Request, res: Response) => {
