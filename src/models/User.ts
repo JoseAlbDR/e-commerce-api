@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { IUser, IUserMethods, UserModel } from "../types/interfaces";
+import { IUser, IUserMethods, IUserModel } from "../types/interfaces";
 import validator from "validator";
 
-const UserSchema = new mongoose.Schema<IUser, UserModel, IUserMethods>({
+const UserSchema = new mongoose.Schema<IUser, IUserModel, IUserMethods>({
   name: {
     type: String,
     required: [true, "User Name is required"],
@@ -60,4 +60,4 @@ UserSchema.methods.checkPassword = async function (
   return isMatch;
 };
 
-export const User = mongoose.model<IUser>("User", UserSchema);
+export const User = mongoose.model<IUser, IUserModel>("User", UserSchema);
