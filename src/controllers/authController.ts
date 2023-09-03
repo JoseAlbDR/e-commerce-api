@@ -16,7 +16,7 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   };
 
   const token = newUser.createJWT(tokenUser);
-  res.status(StatusCodes.CREATED).json({ name: newUser.name, token });
+  res.status(StatusCodes.CREATED).json({ user: tokenUser, token });
 };
 
 export const loginController = (_req: Request, res: Response) => {
