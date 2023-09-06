@@ -11,8 +11,8 @@ import {
   NotFoundError,
   UnauthenticatedError,
 } from "../errors";
-import { createTokenUser } from "../utils/createTokenUser";
-import { attachCookiesToResponse } from "../utils";
+import { createTokenUser } from "../utils";
+import { attachCookiesToResponse, checkPermissions } from "../utils";
 
 export const getAllUsers = async (_req: Request, res: Response) => {
   const users = await User.find({ role: "user" }).select("-password");
@@ -21,13 +21,14 @@ export const getAllUsers = async (_req: Request, res: Response) => {
 
 export const getSingleUser = async (req: ISingleUserRequest, res: Response) => {
   const { id } = req.params;
-  console.log(req.user);
+
   const user = await User.findById(id).select("-password");
 
   if (!user) {
     throw new NotFoundError("User not found");
   }
 
+  checkPermissions(req.user, user._id);
   res.status(StatusCodes.OK).json({ user });
 };
 
