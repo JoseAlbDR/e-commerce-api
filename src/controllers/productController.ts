@@ -7,10 +7,13 @@ export const createProduct = async (req: IProductRequest, res: Response) => {
   const newProduct = await Product.create(product);
   res.status(StatusCodes.OK).json({ product: newProduct });
 };
+
 export const getAllProducts = async (_req: Request, res: Response) => {
-  res.send("get all products");
+  const products = await Product.find({});
+  res.status(StatusCodes.OK).json({ products });
 };
-export const getSingleProduct = async (_req: Request, res: Response) => {
+
+export const getSingleProduct = async (req: Request, res: Response) => {
   res.send("get single product");
 };
 export const updateProduct = async (_req: Request, res: Response) => {
