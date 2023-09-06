@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Role } from "./authInterfaces";
 export {};
 
 declare global {
@@ -7,7 +8,7 @@ declare global {
       user: {
         userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
         name: string;
-        role: string;
+        role: Role;
       };
     }
   }
