@@ -14,7 +14,8 @@ export const getAllProducts = async (_req: Request, res: Response) => {
 };
 
 export const getSingleProduct = async (req: Request, res: Response) => {
-  res.send("get single product");
+  const product = await Product.findById(req.params.id);
+  res.status(StatusCodes.OK).json({ product });
 };
 export const updateProduct = async (_req: Request, res: Response) => {
   res.send("update product");
