@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import { IProduct, IProductRequest } from "../types/productsInterfaces";
 import { Product } from "../models/Product";
 import { StatusCodes } from "http-status-codes";
-import { NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError } from "../errors";
+import fileUpload from "express-fileupload";
+import path from "path";
+
 export const createProduct = async (req: IProductRequest, res: Response) => {
   const product: IProduct = { ...req.body, user: req.user.userId };
   const newProduct = await Product.create(product);
@@ -38,6 +41,25 @@ export const deleteProduct = async (req: Request, res: Response) => {
   res.sendStatus(StatusCodes.OK);
 };
 
-export const uploadImage = async (_req: Request, res: Response) => {
-  res.send("upload image");
+export const uploadImage = async (req: Request, res: Response) => {
+  if (!req.files) throw new BadRequestError("No File Uploaded");
+
+  const image = req.files.image as fileUpload.UploadedFile;
+
+  if (!image.mimetype.startsWith("image"))
+    throw new BadRequestError("Please Upload Image");
+
+  const maxSize = 1024 * 1024;
+
+  if (image.size > maxSize)
+    throw new BadRequestError("Please Upload Image smaller than 1Mb");
+
+  const imagePath = path.join(
+    __dirname,
+    "../public/uploads/" + `${image.name}`
+  );
+
+  await image.mv(imagePath);
+
+  res.status(StatusCodes.OK).json({ image: `/uploads/${image.name}` });
 };
