@@ -10,7 +10,7 @@ export interface IUserMethods {
 export interface IResponseUser {
   userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   name: string;
-  role: "admin" | "user";
+  role: Role;
 }
 
 export interface ITokenUserPayload {
@@ -27,8 +27,10 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  role: "admin" | "user";
+  role: Role;
 }
+
+export type Role = "admin" | "user";
 
 export interface IUserRequest {
   body: IUser;
