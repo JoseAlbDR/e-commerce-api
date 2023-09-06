@@ -11,7 +11,10 @@ import {
   updateUserPassword,
 } from "../controllers/userController";
 import { validateBody } from "../middleware/joi-validation";
-import { validateUpdatePassword } from "../utils/joiValidation";
+import {
+  validateUpdatePassword,
+  validateUpdateUser,
+} from "../utils/joiValidation";
 
 const router = express.Router();
 
@@ -20,7 +23,11 @@ router
   .get(authenticateUser, authorizePermissions("admin"), getAllUsers);
 
 router.route("/showMe").get(authenticateUser, showCurrentUser);
-router.route("/updateUser").patch(updateUser);
+
+router
+  .route("/updateUser")
+  .patch(authenticateUser, validateBody(validateUpdateUser), updateUser);
+
 router
   .route("/updateUserPassword")
   .patch(
