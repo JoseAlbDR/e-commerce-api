@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { UnauthenticatedError } from "../errors";
 import { isTokenValid } from "../utils";
 import { IResponseUser } from "../types/authInterfaces";
-const authenticationMiddleware = async (
+const authenticateUser = async (
   req: Request,
   _res: Response,
   next: NextFunction
@@ -24,4 +24,4 @@ const authenticationMiddleware = async (
   }
 };
 
-export default authenticationMiddleware;
+export default authenticateUser;

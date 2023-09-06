@@ -1,5 +1,5 @@
 import express from "express";
-import authenticationMiddleware from "../middleware/authentication";
+import authenticateUser from "../middleware/authentication";
 import {
   getAllUsers,
   getSingleUser,
@@ -10,12 +10,12 @@ import {
 
 const router = express.Router();
 
-router.route("/").get(authenticationMiddleware, getAllUsers);
+router.route("/").get(authenticateUser, getAllUsers);
 
-router.route("/showMe").get(authenticationMiddleware, showCurrentUser);
+router.route("/showMe").get(authenticateUser, showCurrentUser);
 router.route("/updateUser").patch(updateUser);
 router.route("/updateUserPassword").patch(updateUserPassword);
 
-router.route("/:id").get(getSingleUser);
+router.route("/:id").get(authenticateUser, getSingleUser);
 
 export default router;
