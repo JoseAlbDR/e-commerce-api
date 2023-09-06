@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UnauthorizedError, UnauthenticatedError } from "../errors";
 import { isTokenValid } from "../utils";
-import { IResponseUser, Role } from "../types/authInterfaces";
+import { ITokenUser, Role } from "../types/authInterfaces";
 const authenticateUser = async (
   req: Request,
   _res: Response,
@@ -14,7 +14,7 @@ const authenticateUser = async (
   }
 
   try {
-    const payload = isTokenValid(token) as IResponseUser;
+    const payload = isTokenValid(token) as ITokenUser;
     const { userId, name, role } = payload;
     req.user = { userId, name, role };
     next();

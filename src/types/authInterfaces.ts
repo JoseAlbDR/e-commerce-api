@@ -7,19 +7,19 @@ export interface IUserMethods {
   checkPassword(candidatePassword: string): Promise<boolean>;
 }
 
-export interface IResponseUser {
+export interface ITokenUser {
   userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   name: string;
   role: Role;
 }
 
 export interface ITokenUserPayload {
-  payload: IResponseUser;
+  payload: ITokenUser;
 }
 
 export interface IAttachCookies {
   res: Response;
-  user: IResponseUser;
+  user: ITokenUser;
 }
 
 export interface IUser {

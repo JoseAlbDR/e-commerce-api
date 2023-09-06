@@ -1,13 +1,10 @@
 import { Request, Response } from "express";
-import {
-  ILoginRequest,
-  IResponseUser,
-  IUserRequest,
-} from "../types/authInterfaces";
+import { ILoginRequest, IUserRequest } from "../types/authInterfaces";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { attachCookiesToResponse } from "../utils";
 import { UnauthenticatedError } from "../errors";
+import { createTokenUser } from "../utils/createTokenUser";
 
 export const registerController = async (req: IUserRequest, res: Response) => {
   const { name, email, password } = req.body;
@@ -17,15 +14,12 @@ export const registerController = async (req: IUserRequest, res: Response) => {
   const role = isFirstAccount ? "admin" : "user";
 
   const newUser = await User.create({ name, email, password, role });
-  const registeredUser: IResponseUser = {
-    name: newUser.name,
-    userId: newUser._id,
-    role: newUser.role,
-  };
 
-  attachCookiesToResponse({ res, user: registeredUser });
+  const tokenUser = createTokenUser(newUser);
 
-  res.status(StatusCodes.CREATED).json({ user: registeredUser });
+  attachCookiesToResponse({ res, user: tokenUser });
+
+  res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 
 export const loginController = async (req: ILoginRequest, res: Response) => {
@@ -43,15 +37,11 @@ export const loginController = async (req: ILoginRequest, res: Response) => {
     throw new UnauthenticatedError("Invalid password");
   }
 
-  const loguedUser: IResponseUser = {
-    name: user.name,
-    userId: user._id,
-    role: user.role,
-  };
+  const tokenUser = createTokenUser(user);
 
-  attachCookiesToResponse({ res, user: loguedUser });
+  attachCookiesToResponse({ res, user: tokenUser });
 
-  res.status(StatusCodes.OK).json({ user: loguedUser });
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
 export const logoutController = (_req: Request, res: Response) => {
