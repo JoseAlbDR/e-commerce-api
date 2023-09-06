@@ -24,4 +24,18 @@ const authenticateUser = async (
   }
 };
 
-export default authenticateUser;
+const authorizePermissions = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  const { role } = req.user;
+
+  if (role !== "admin") {
+    throw new UnauthenticatedError("Only admin can get all users");
+  }
+
+  next();
+};
+
+export { authenticateUser, authorizePermissions };

@@ -1,5 +1,8 @@
 import express from "express";
-import authenticateUser from "../middleware/authentication";
+import {
+  authenticateUser,
+  authorizePermissions,
+} from "../middleware/authentication";
 import {
   getAllUsers,
   getSingleUser,
@@ -10,7 +13,7 @@ import {
 
 const router = express.Router();
 
-router.route("/").get(authenticateUser, getAllUsers);
+router.route("/").get(authenticateUser, authorizePermissions, getAllUsers);
 
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router.route("/updateUser").patch(updateUser);
