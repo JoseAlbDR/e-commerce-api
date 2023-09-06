@@ -1,8 +1,15 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
-import { ISingleUserRequest } from "../types/userInterfaces";
-import { NotFoundError } from "../errors";
+import {
+  ISingleUserRequest,
+  IUpdatePasswordRequest,
+} from "../types/userInterfaces";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthenticatedError,
+} from "../errors";
 
 export const getAllUsers = async (_req: Request, res: Response) => {
   const users = await User.find({ role: "user" }).select("-password");
@@ -33,6 +40,26 @@ export const showCurrentUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   res.json(req.body);
 };
-export const updateUserPassword = async (req: Request, res: Response) => {
-  res.json(req.body);
+
+export const updateUserPassword = async (
+  req: IUpdatePasswordRequest,
+  res: Response
+) => {
+  const { oldPassword, newPassword } = req.body;
+
+  if (oldPassword === newPassword)
+    throw new BadRequestError("Password can not be the same");
+
+  const user = await User.findById(req.user.userId);
+
+  if (user) {
+    const isPasswordValid = await user.checkPassword(oldPassword);
+
+    if (!isPasswordValid) throw new UnauthenticatedError("Invalid password");
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(StatusCodes.OK).json({ msg: "Password updated successfully" });
+  }
 };

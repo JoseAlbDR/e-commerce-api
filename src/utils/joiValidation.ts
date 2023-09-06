@@ -21,6 +21,7 @@
 
 import Joi from "joi";
 import { ILogin } from "../types/authInterfaces";
+import { IUpdatePassword } from "../types/userInterfaces";
 
 export const validateLogin = (query: unknown) => {
   const loginSchema = Joi.object<ILogin>({
@@ -29,6 +30,21 @@ export const validateLogin = (query: unknown) => {
   });
 
   return loginSchema.validate(query, {
+    errors: { wrap: { label: false } },
+    messages: {
+      "object.unknown": "Unknown parameter: {#key}",
+      "any.required": "Please provide {#key}",
+    },
+  });
+};
+
+export const validateUpdatePassword = (query: unknown) => {
+  const updatePasswordSchema = Joi.object<IUpdatePassword>({
+    oldPassword: Joi.string().required().label("Old Password"),
+    newPassword: Joi.string().required().label("New Password"),
+  });
+
+  return updatePasswordSchema.validate(query, {
     errors: { wrap: { label: false } },
     messages: {
       "object.unknown": "Unknown parameter: {#key}",

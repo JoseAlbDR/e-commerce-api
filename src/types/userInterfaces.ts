@@ -5,3 +5,12 @@ export interface ISingleUserRequest extends Request {
     id: string;
   };
 }
+
+export interface IUpdatePassword {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface IUpdatePasswordRequest extends Request {
+  body: IUpdatePassword;
+}

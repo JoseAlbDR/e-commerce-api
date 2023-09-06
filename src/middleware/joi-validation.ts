@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { ILogin } from "../types/authInterfaces";
 import { BadRequestError } from "../errors";
 import Joi from "joi";
+import { CustomBody } from "../types/joiInterfaces";
 
-type ValidationFunction = <T extends ILogin>(
+type ValidationFunction = <T extends CustomBody>(
   data: T
-) => Joi.ValidationResult<ILogin>;
+) => Joi.ValidationResult<CustomBody>;
 
 const validateBody =
   (validationFunction: ValidationFunction) =>

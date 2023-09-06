@@ -10,6 +10,8 @@ import {
   updateUser,
   updateUserPassword,
 } from "../controllers/userController";
+import { validateBody } from "../middleware/joi-validation";
+import { validateUpdatePassword } from "../utils/joiValidation";
 
 const router = express.Router();
 
@@ -19,7 +21,13 @@ router
 
 router.route("/showMe").get(authenticateUser, showCurrentUser);
 router.route("/updateUser").patch(updateUser);
-router.route("/updateUserPassword").patch(updateUserPassword);
+router
+  .route("/updateUserPassword")
+  .patch(
+    authenticateUser,
+    validateBody(validateUpdatePassword),
+    updateUserPassword
+  );
 
 router.route("/:id").get(authenticateUser, getSingleUser);
 
