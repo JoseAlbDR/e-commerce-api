@@ -5,52 +5,59 @@ const ProductSchema = new mongoose.Schema<IProduct>(
   {
     name: {
       type: String,
+      trim: true,
       required: [true, "Product name is required"],
-      minlength: 10,
-      maxlength: 50,
+      maxlength: [100, "Name can not be more than 100 characters"],
     },
     price: {
       type: Number,
       required: [true, "Product price is required"],
+      default: 0,
       min: 0,
     },
     description: {
       type: String,
+      required: [true, "Description name is required"],
+      maxlength: [1000, "Description can not be more than 1000 characters"],
     },
     image: {
       type: String,
-      required: [true, "Product image is required"],
+      default: "/uploads/expample.jpeg",
     },
     category: {
       type: String,
+      enum: ["office", "kitchen", "bedroom"],
       required: [true, "Product category is required"],
     },
     company: {
       type: String,
+      enum: {
+        values: ["ikea", "liddy", "marcos"],
+        message: "{VALUE} is not supported",
+      },
       required: [true, "Product company is required"],
     },
     colors: {
-      type: [],
+      type: [String],
       required: [true, "Product colors is required"],
     },
     featured: {
       type: Boolean,
       default: false,
-      required: [true, "Product featured is required"],
     },
     freeShipping: {
       type: Boolean,
       default: false,
-      required: [true, "Product free shipping is required"],
     },
     inventory: {
       type: Number,
       min: 0,
       default: 0,
-      required: [true, "Product inventory is required"],
     },
     user: {
-      type: Object,
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
   { timestamps: true }
