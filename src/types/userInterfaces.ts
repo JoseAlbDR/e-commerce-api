@@ -11,6 +11,15 @@ export interface IUpdatePassword {
   newPassword: string;
 }
 
+export interface IUpdateUser {
+  name: string;
+  email: string;
+}
+
 export interface IUpdatePasswordRequest extends Request {
   body: IUpdatePassword;
+}
+
+export interface IUpdateUserRequest extends Request {
+  body: IUpdateUser;
 }
