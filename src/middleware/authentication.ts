@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UnauthorizedError, UnauthenticatedError } from "../errors";
 import { isTokenValid } from "../utils";
-import { IResponseUser } from "../types/authInterfaces";
+import { IResponseUser, Role } from "../types/authInterfaces";
 const authenticateUser = async (
   req: Request,
   _res: Response,
@@ -24,18 +24,13 @@ const authenticateUser = async (
   }
 };
 
-const authorizePermissions = (
-  req: Request,
-  _res: Response,
-  next: NextFunction
-) => {
-  const { role } = req.user;
-
-  if (role !== "admin") {
-    throw new UnauthorizedError("Unahotized to view this route");
-  }
-
-  next();
+const authorizePermissions = (...rest: Role[]) => {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    const { role } = req.user;
+    if (!rest.includes(role))
+      throw new UnauthorizedError("Unahotized to view this route");
+    next();
+  };
 };
 
 export { authenticateUser, authorizePermissions };
