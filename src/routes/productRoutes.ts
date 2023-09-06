@@ -7,17 +7,24 @@ import {
   updateProduct,
   uploadImage,
 } from "../controllers/productController";
+import {
+  authenticateUser,
+  authorizePermissions,
+} from "../middleware/authentication";
 
 const router = express.Router();
 
-router.route("/").get(getAllProducts).post(createProduct);
+router
+  .route("/")
+  .get(getAllProducts)
+  .post([authenticateUser, authorizePermissions("admin")], createProduct);
 
 router.route("/uploadImage").post(uploadImage);
 
 router
   .route("/:id")
   .get(getSingleProduct)
-  .patch(updateProduct)
-  .delete(deleteProduct);
+  .patch([authenticateUser, authorizePermissions("admin")], updateProduct)
+  .delete([authenticateUser, authorizePermissions("admin")], deleteProduct);
 
 export default router;
