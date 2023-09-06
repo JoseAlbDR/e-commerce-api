@@ -24,10 +24,10 @@ const authenticateUser = async (
   }
 };
 
-const authorizePermissions = (...rest: Role[]) => {
+const authorizePermissions = (...roles: Role[]) => {
   return (req: Request, _res: Response, next: NextFunction) => {
     const { role } = req.user;
-    if (!rest.includes(role))
+    if (!roles.includes(role))
       throw new UnauthorizedError("Unahotized to view this route");
     next();
   };
