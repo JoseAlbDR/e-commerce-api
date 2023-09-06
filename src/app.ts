@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoutes";
 import productsRouter from "./routes/productRoutes";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +17,8 @@ const port = process.env.PORT || 3000;
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(express.static("./src/public"));
+app.use(fileUpload());
 
 app.get("/", (_req, res) => {
   res.send("E-Commerce API");
