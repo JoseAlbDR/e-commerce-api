@@ -4,7 +4,7 @@ import { User } from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import { attachCookiesToResponse } from "../utils";
 import { UnauthenticatedError } from "../errors";
-import { createTokenUser } from "../utils/createTokenUser";
+import { createTokenUser } from "../utils";
 
 export const registerController = async (req: IUserRequest, res: Response) => {
   const { name, email, password } = req.body;
