@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { UnauthenticatedError } from "../errors";
+import { UnauthorizedError, UnauthenticatedError } from "../errors";
 import { isTokenValid } from "../utils";
 import { IResponseUser } from "../types/authInterfaces";
 const authenticateUser = async (
@@ -32,7 +32,7 @@ const authorizePermissions = (
   const { role } = req.user;
 
   if (role !== "admin") {
-    throw new UnauthenticatedError("Only admin can get all users");
+    throw new UnauthorizedError("Unahotized to view this route");
   }
 
   next();
