@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
-export const createProduct = async (_req: Request, res: Response) => {
-  res.send("create product");
+import { IProduct, IProductRequest } from "../types/productsInterfaces";
+import { Product } from "../models/Product";
+import { StatusCodes } from "http-status-codes";
+export const createProduct = async (req: IProductRequest, res: Response) => {
+  const product: IProduct = { ...req.body, user: req.user.userId };
+  const newProduct = await Product.create(product);
+  res.status(StatusCodes.OK).json({ product: newProduct });
 };
 export const getAllProducts = async (_req: Request, res: Response) => {
   res.send("get all products");

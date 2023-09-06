@@ -1,4 +1,5 @@
-import { IUser } from "./authInterfaces";
+import mongoose from "mongoose";
+import { Request } from "express";
 
 export type Category = "office" | "kitchen" | "bedroom";
 export type Company = "ikea" | "liddy" | "marcos";
@@ -15,5 +16,9 @@ export interface IProduct {
   freeShipping: boolean;
   inventory: number;
   averageRating: number;
-  user: IUser;
+  user: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+}
+
+export interface IProductRequest extends Request {
+  body: Omit<IProduct, "user">;
 }
