@@ -19,7 +19,7 @@ router
   .post(authenticateUser, authorizePermissions("user"), createReview);
 
 router
-  .route("/id")
+  .route("/:id")
   .get(getSingleReview)
   .patch(authenticateUser, authorizePermissions("user"), updateReview)
   .delete(authenticateUser, authorizePermissions("user"), deleteReview);
