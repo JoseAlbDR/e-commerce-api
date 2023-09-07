@@ -5,7 +5,6 @@ import { StatusCodes } from "http-status-codes";
 import { Product } from "../models/Product";
 import { BadRequestError, NotFoundError } from "../errors";
 import { checkPermissions } from "../utils";
-// import mongoose from "mongoose";
 
 export const createReview = async (req: IReviewRequest, res: Response) => {
   const review: IReview = { ...req.body, userId: req.user.userId };
@@ -30,7 +29,10 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 };
 
 export const getAllReviews = async (_req: Request, res: Response) => {
-  const reviews = await Review.find({});
+  const reviews = await Review.find({}).populate({
+    path: "productId",
+    select: "name company price",
+  });
 
   res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
 };
