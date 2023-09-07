@@ -4,6 +4,7 @@ import { Review } from "../models/Review";
 import { StatusCodes } from "http-status-codes";
 import { Product } from "../models/Product";
 import { BadRequestError, NotFoundError } from "../errors";
+import { checkPermissions } from "../utils";
 // import mongoose from "mongoose";
 
 export const createReview = async (req: IReviewRequest, res: Response) => {
@@ -31,7 +32,7 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 export const getAllReviews = async (_req: Request, res: Response) => {
   const reviews = await Review.find({});
 
-  res.status(StatusCodes.OK).json({ reviews });
+  res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
 };
 
 export const getSingleReview = async (req: Request, res: Response) => {
@@ -47,6 +48,16 @@ export const updateReview = async (_req: Request, res: Response) => {
   res.send("update review");
 };
 
-export const deleteReview = async (_req: Request, res: Response) => {
-  res.send("delete review");
+export const deleteReview = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const review = await Review.findOne({ _id: id });
+
+  if (!review) throw new NotFoundError(`Review not found with id ${id}`);
+
+  checkPermissions(req.user, review.userId);
+
+  await Review.findByIdAndDelete(review._id);
+
+  res.sendStatus(StatusCodes.OK);
 };
