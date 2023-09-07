@@ -34,8 +34,13 @@ export const getAllReviews = async (_req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({ reviews });
 };
 
-export const getSingleReview = async (_req: Request, res: Response) => {
-  res.send("single review");
+export const getSingleReview = async (req: Request, res: Response) => {
+  const review = await Review.findById(req.params.id);
+
+  if (!review)
+    throw new NotFoundError(`Review not found with id ${req.params.id}`);
+
+  res.status(StatusCodes.OK).json({ review });
 };
 
 export const updateReview = async (_req: Request, res: Response) => {
