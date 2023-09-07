@@ -16,8 +16,8 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
     throw new NotFoundError(`No Product with id: ${product as string}`);
 
   const alreadySubmitted = await Review.findOne({
-    productId: review.product,
-    userId: review.user,
+    product: review.product,
+    user: review.user,
   });
 
   if (alreadySubmitted)
