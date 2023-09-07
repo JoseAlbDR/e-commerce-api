@@ -7,6 +7,8 @@ import errorHandlerMiddleware from "./middleware/error-handler";
 import authRouter from "./routes/authRoutes";
 import userRouter from "./routes/userRoutes";
 import productsRouter from "./routes/productRoutes";
+import reviewsRouter from "./routes/reviewRoutes";
+
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
@@ -33,6 +35,7 @@ app.get("/api/v1", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/reviews", reviewsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

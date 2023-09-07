@@ -22,3 +22,5 @@ router
   .get(getSingleReview)
   .patch(authenticateUser, authorizePermissions("user"), updateReview)
   .delete(authenticateUser, authorizePermissions("user"), deleteReview);
+
+export default router;
