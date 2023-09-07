@@ -17,6 +17,7 @@ router
   .route("/")
   .get(getAllReviews)
   .post(authenticateUser, authorizePermissions("user"), createReview);
+
 router
   .route("/id")
   .get(getSingleReview)
