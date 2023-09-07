@@ -36,9 +36,11 @@ export const updateProduct = async (req: IProductRequest, res: Response) => {
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
+  const product = await Product.findOne({ _id: req.params.id });
   if (!product)
     throw new NotFoundError(`Product with id ${req.params.id} not found`);
+
+  await product.deleteOne();
   res.sendStatus(StatusCodes.OK);
 };
 
