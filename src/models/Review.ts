@@ -21,12 +21,12 @@ const ReviewSchema = new mongoose.Schema<IReview>(
       required: [true, "Please provide review text"],
       maxlength: [1000, "Title cannot exceed 1000 characters"],
     },
-    userId: {
+    user: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    productId: {
+    product: {
       type: mongoose.Types.ObjectId,
       ref: "Product",
       required: true,

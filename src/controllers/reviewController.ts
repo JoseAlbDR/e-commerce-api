@@ -7,17 +7,17 @@ import { BadRequestError, NotFoundError } from "../errors";
 import { checkPermissions } from "../utils";
 
 export const createReview = async (req: IReviewRequest, res: Response) => {
-  const review: IReview = { ...req.body, userId: req.user.userId };
-  const { productId } = review;
+  const review: IReview = { ...req.body, user: req.user.userId };
+  const { product } = review;
 
-  const isValidProduct = await Product.findOne({ _id: productId });
+  const isValidProduct = await Product.findOne({ _id: product });
 
   if (!isValidProduct)
-    throw new NotFoundError(`No Product with id: ${productId as string}`);
+    throw new NotFoundError(`No Product with id: ${product as string}`);
 
   const alreadySubmitted = await Review.findOne({
-    productId: review.productId,
-    userId: review.userId,
+    productId: review.product,
+    userId: review.user,
   });
 
   if (alreadySubmitted)
@@ -30,7 +30,7 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 
 export const getAllReviews = async (_req: Request, res: Response) => {
   const reviews = await Review.find({}).populate({
-    path: "productId",
+    path: "product",
     select: "name company price",
   });
 
@@ -54,7 +54,7 @@ export const updateReview = async (req: IReviewRequest, res: Response) => {
 
   if (!review) throw new NotFoundError(`Review not found with id ${id}`);
 
-  checkPermissions(req.user, review.userId);
+  checkPermissions(req.user, review.user);
 
   review.title = title;
   review.rating = rating;
@@ -72,7 +72,7 @@ export const deleteReview = async (req: Request, res: Response) => {
 
   if (!review) throw new NotFoundError(`Review not found with id ${id}`);
 
-  checkPermissions(req.user, review.userId);
+  checkPermissions(req.user, review.user);
 
   await Review.findByIdAndDelete(review._id);
 
