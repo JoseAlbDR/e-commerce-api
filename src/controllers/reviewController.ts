@@ -44,8 +44,21 @@ export const getSingleReview = async (req: Request, res: Response) => {
   res.status(StatusCodes.OK).json({ review });
 };
 
-export const updateReview = async (_req: Request, res: Response) => {
-  res.send("update review");
+export const updateReview = async (req: IReviewRequest, res: Response) => {
+  const { id } = req.params;
+
+  const review = await Review.findOne({ _id: id });
+
+  if (!review) throw new NotFoundError(`Review not found with id ${id}`);
+
+  checkPermissions(req.user, review.userId);
+
+  const updatedReview = await Review.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(StatusCodes.OK).json({ review: updatedReview });
 };
 
 export const deleteReview = async (req: Request, res: Response) => {
