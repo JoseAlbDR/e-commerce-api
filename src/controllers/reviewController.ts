@@ -3,7 +3,7 @@ import { IReview, IReviewRequest } from "../types/reviewsInterfaces";
 import { Review } from "../models/Review";
 import { StatusCodes } from "http-status-codes";
 import { Product } from "../models/Product";
-import { NotFoundError } from "../errors";
+import { BadRequestError, NotFoundError } from "../errors";
 // import mongoose from "mongoose";
 
 export const createReview = async (req: IReviewRequest, res: Response) => {
@@ -14,6 +14,14 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 
   if (!isValidProduct)
     throw new NotFoundError(`No Product with id: ${productId as string}`);
+
+  const alreadySubmitted = await Review.findOne({
+    product: review.productId,
+    user: review.userId,
+  });
+
+  if (alreadySubmitted)
+    throw new BadRequestError("Already submitted review for this product");
 
   const newReview = await Review.create(review);
 
