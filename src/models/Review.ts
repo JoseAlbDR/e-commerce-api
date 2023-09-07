@@ -1,4 +1,4 @@
-import { IReview } from "./../types/reviewInterfaces";
+import { IReview } from "../types/reviewsInterfaces";
 import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema<IReview>(
