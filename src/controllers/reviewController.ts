@@ -29,16 +29,29 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 };
 
 export const getAllReviews = async (_req: Request, res: Response) => {
-  const reviews = await Review.find({}).populate({
-    path: "product",
-    select: "name company price",
-  });
+  const reviews = await Review.find({})
+    .populate({
+      path: "product",
+      select: "name company price",
+    })
+    .populate({
+      path: "user",
+      select: "name",
+    });
 
   res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
 };
 
 export const getSingleReview = async (req: Request, res: Response) => {
-  const review = await Review.findById(req.params.id);
+  const review = await Review.findById(req.params.id)
+    .populate({
+      path: "product",
+      select: "name company price",
+    })
+    .populate({
+      path: "user",
+      select: "name",
+    });
 
   if (!review)
     throw new NotFoundError(`Review not found with id ${req.params.id}`);
