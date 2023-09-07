@@ -46,6 +46,7 @@ export const getSingleReview = async (req: Request, res: Response) => {
 
 export const updateReview = async (req: IReviewRequest, res: Response) => {
   const { id } = req.params;
+  const { title, rating, comment } = req.body;
 
   const review = await Review.findOne({ _id: id });
 
@@ -53,12 +54,13 @@ export const updateReview = async (req: IReviewRequest, res: Response) => {
 
   checkPermissions(req.user, review.userId);
 
-  const updatedReview = await Review.findOneAndUpdate({ _id: id }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  review.title = title;
+  review.rating = rating;
+  review.comment = comment;
 
-  res.status(StatusCodes.OK).json({ review: updatedReview });
+  await review.save();
+
+  res.status(StatusCodes.OK).json({ review });
 };
 
 export const deleteReview = async (req: Request, res: Response) => {
