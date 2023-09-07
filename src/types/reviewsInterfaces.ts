@@ -5,8 +5,8 @@ export interface IReview {
   rating: number;
   title: string;
   comment: string;
-  user: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  product: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+  userId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+  productId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
 }
 
 export interface IReviewRequest extends Request {

@@ -21,12 +21,12 @@ const ReviewSchema = new mongoose.Schema<IReview>(
       required: [true, "Please provide review text"],
       maxlength: [1000, "Title cannot exceed 1000 characters"],
     },
-    user: {
+    userId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    product: {
+    productId: {
       type: mongoose.Types.ObjectId,
       ref: "Product",
       required: true,
@@ -35,6 +35,6 @@ const ReviewSchema = new mongoose.Schema<IReview>(
   { timestamps: true }
 );
 
-ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
+ReviewSchema.index({ productId: 1, userId: 1 }, { unique: true });
 
 export const Review = mongoose.model("Review", ReviewSchema);
