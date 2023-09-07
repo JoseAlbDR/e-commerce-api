@@ -20,8 +20,6 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
     userId: review.userId,
   });
 
-  console.log(alreadySubmitted);
-
   if (alreadySubmitted)
     throw new BadRequestError("Already submitted review for this product");
 
@@ -31,7 +29,9 @@ export const createReview = async (req: IReviewRequest, res: Response) => {
 };
 
 export const getAllReviews = async (_req: Request, res: Response) => {
-  res.send("all reviews");
+  const reviews = await Review.find({});
+
+  res.status(StatusCodes.OK).json({ reviews });
 };
 
 export const getSingleReview = async (_req: Request, res: Response) => {
