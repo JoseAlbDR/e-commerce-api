@@ -2,6 +2,13 @@ import { Request, Response } from "express";
 import { ICartItem, IOrderRequest } from "../types/orderInterfaces";
 import { BadRequestError, NotFoundError } from "../errors";
 import { Product } from "../models/Product";
+import Stripe from "stripe";
+import { Order } from "../models/Order";
+import { StatusCodes } from "http-status-codes";
+
+const stripe = new Stripe(process.env.STRIPE_API_KEY, {
+  apiVersion: "2023-08-16",
+});
 
 export const getAllOrders = async (_req: Request, res: Response) => {
   res.send("get all orders");
@@ -22,7 +29,7 @@ export const createOrder = async (req: IOrderRequest, res: Response) => {
     throw new BadRequestError("Please provide tax and shipping fee");
 
   let orderItems: ICartItem[] = [];
-  let subTotal: number = 0;
+  let subtotal: number = 0;
 
   for (const item of cartItems) {
     const dbProduct = await Product.findById(item.product);
@@ -42,11 +49,31 @@ export const createOrder = async (req: IOrderRequest, res: Response) => {
     // all item to order
     orderItems = [...orderItems, singleOrderItem];
     // calculate subtotal
-    subTotal += item.amount * price;
+    subtotal += item.amount * price;
   }
-  console.log(orderItems);
-  console.log(subTotal);
-  res.send("create order");
+  // calculate total
+  const total = tax + shippingFee + subtotal;
+
+  // get client secret
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: total,
+    currency: "usd",
+  });
+
+  const order = await Order.create({
+    clientSecret: paymentIntent.client_secret,
+    items: orderItems,
+    subtotal,
+    total,
+    tax,
+    user: req.user.userId,
+    shippingFee,
+    paymentIntentId: paymentIntent.id,
+  });
+
+  res
+    .status(StatusCodes.CREATED)
+    .json({ order, clientSecret: paymentIntent.client_secret });
 };
 export const updateOrder = async (_req: Request, res: Response) => {
   res.send("update order");
