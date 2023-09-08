@@ -14,5 +14,7 @@ export interface IReviewRequest extends Request {
 }
 
 export interface ReviewModel extends Model<IReview> {
-  calculateAverageRating(product: mongoose.Types.ObjectId): void;
+  calculateAverageRating(
+    product: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>
+  ): Promise<void>;
 }

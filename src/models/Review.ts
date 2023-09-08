@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { IReview, ReviewModel } from "../types/reviewsInterfaces";
 
-const ReviewSchema = new mongoose.Schema(
+const ReviewSchema = new mongoose.Schema<IReview, ReviewModel>(
   {
     rating: {
       type: Number,
@@ -33,11 +34,6 @@ const ReviewSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    statics: {
-      calculateAverageRating: async function (productId) {
-        console.log(productId);
-      },
-    },
   }
 );
 
@@ -55,4 +51,14 @@ ReviewSchema.post(
   }
 );
 
-export const Review = mongoose.model("Review", ReviewSchema);
+ReviewSchema.static(
+  "calculateAverageRating",
+  async function calculateAverageRating(product: mongoose.Types.ObjectId) {
+    console.log(product);
+  }
+);
+
+export const Review = mongoose.model<IReview, ReviewModel>(
+  "Review",
+  ReviewSchema
+);
