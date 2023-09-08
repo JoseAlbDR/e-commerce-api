@@ -6,9 +6,9 @@ export const checkPermissions = (
   requestUser: ITokenUser,
   resourceUserId: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>
 ) => {
-  console.log(requestUser);
-  console.log(resourceUserId);
-  console.log(typeof resourceUserId);
+  // console.log(requestUser);
+  // console.log(resourceUserId);
+  // console.log(typeof resourceUserId);
 
   if (requestUser.role === "admin") return;
   if (resourceUserId && typeof resourceUserId === "object") {
