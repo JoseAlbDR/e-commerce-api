@@ -1,14 +1,23 @@
 import mongoose from "mongoose";
-import { IProduct } from "./productsInterfaces";
+
+type Status = "pending" | "failed" | "paid" | "delivered" | "canceled";
+
+export interface ICartItem {
+  name: string;
+  image: string;
+  price: number;
+  amount: number;
+  product: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
+}
 
 export interface IOrder {
   tax: number;
   shippingFee: number;
   subtotal: number;
   total: number;
-  orderItems: IProduct[];
+  orderItems: ICartItem[];
   user: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
-  status: string;
+  status: Status;
   clientSecret: string;
-  paymentId: string;
+  paymentIntentId: string;
 }

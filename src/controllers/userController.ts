@@ -68,7 +68,6 @@ export const updateUserPassword = async (
 
     user.password = newPassword;
     await user.save();
-
     res.status(StatusCodes.OK).json({ msg: "Password updated successfully" });
   }
 };

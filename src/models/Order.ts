@@ -1,26 +1,59 @@
 import mongoose from "mongoose";
 import { IOrder } from "../types/orderInterfaces";
 
+const SingleCartItemSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+  product: {
+    type: mongoose.Types.ObjectId,
+    ref: "Product",
+    required: true,
+  },
+});
+
 const OrderSchema = new mongoose.Schema<IOrder>(
   {
     tax: {
       type: Number,
+      required: true,
       min: 0,
     },
     shippingFee: {
       type: Number,
+      required: true,
       min: 0,
     },
     subtotal: {
       type: Number,
+      required: true,
       min: 0,
     },
     total: {
       type: Number,
+      required: true,
       min: 1,
     },
     orderItems: {
-      type: [],
+      type: [SingleCartItemSchema],
+    },
+    status: {
+      type: String,
+      enum: ["pending", "failed", "paid", "delivered", "canceled"],
+      default: "pending",
     },
     user: {
       type: mongoose.Types.ObjectId,
@@ -29,8 +62,9 @@ const OrderSchema = new mongoose.Schema<IOrder>(
     },
     clientSecret: {
       type: String,
+      required: true,
     },
-    paymentId: {
+    paymentIntentId: {
       type: String,
     },
   },
