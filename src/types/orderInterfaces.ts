@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Request } from "express";
 
 type Status = "pending" | "failed" | "paid" | "delivered" | "canceled";
 
@@ -15,9 +16,13 @@ export interface IOrder {
   shippingFee: number;
   subtotal: number;
   total: number;
-  orderItems: ICartItem[];
+  items: ICartItem[];
   user: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
   status: Status;
   clientSecret: string;
   paymentIntentId: string;
+}
+
+export interface IOrderRequest extends Request {
+  body: IOrder;
 }
