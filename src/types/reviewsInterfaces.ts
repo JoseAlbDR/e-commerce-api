@@ -18,3 +18,5 @@ export interface ReviewModel extends Model<IReview> {
     product: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>
   ): Promise<void>;
 }
+
+export type AggResult = { _id: null; averageRating: number; numOfReviews: 2 };
