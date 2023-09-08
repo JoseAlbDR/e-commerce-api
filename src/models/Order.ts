@@ -47,7 +47,7 @@ const OrderSchema = new mongoose.Schema<IOrder>(
       required: true,
       min: 1,
     },
-    orderItems: {
+    items: {
       type: [SingleCartItemSchema],
     },
     status: {
