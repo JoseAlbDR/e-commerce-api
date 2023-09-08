@@ -5,5 +5,5 @@ jobsdocs.json
 client
 *.js
 mockdata
-public/index.html
+index.html
 docs.json
