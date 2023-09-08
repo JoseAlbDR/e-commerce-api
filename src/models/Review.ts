@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IReview, ReviewModel } from "../types/reviewsInterfaces";
+import { AggResult, IReview, ReviewModel } from "../types/reviewsInterfaces";
 
 const ReviewSchema = new mongoose.Schema<IReview, ReviewModel>(
   {
@@ -53,8 +53,27 @@ ReviewSchema.post(
 
 ReviewSchema.static(
   "calculateAverageRating",
-  async function calculateAverageRating(product: mongoose.Types.ObjectId) {
-    console.log(product);
+  async function calculateAverageRating(
+    this,
+    product: mongoose.Types.ObjectId
+  ) {
+    const result: AggResult[] = await this.aggregate([
+      { $match: { product } },
+      {
+        $group: {
+          _id: null,
+          averageRating: { $avg: "$rating" },
+          numOfReviews: { $sum: 1 },
+        },
+      },
+    ]);
+    await mongoose.model("Product").findOneAndUpdate(
+      { _id: product },
+      {
+        averageRating: Math.ceil(result[0]?.averageRating || 0),
+        numOfReviews: result[0]?.numOfReviews || 0,
+      }
+    );
   }
 );
 
