@@ -29,12 +29,12 @@ export const getSingleOrder = async (req: Request, res: Response) => {
 export const getCurrentUserOrders = async (req: Request, res: Response) => {
   const { userId } = req.user;
 
-  const orders = await Order.findOne({ user: userId });
+  const orders = await Order.find({ user: userId });
 
   if (!orders)
     throw new NotFoundError(`Orders not found for user ${req.user.name}`);
 
-  res.status(StatusCodes.OK).json({ orders });
+  res.status(StatusCodes.OK).json({ orders, count: orders.length });
 };
 
 export const createOrder = async (req: IOrderRequest, res: Response) => {
