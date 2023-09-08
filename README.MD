@@ -328,7 +328,7 @@
 
 #### Get Current User Orders
 
-- [] find orders where user is equal to req.user.userId
+- [x] find orders where user is equal to req.user.userId
 
 #### Update Order
 
