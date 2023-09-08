@@ -20,6 +20,7 @@ declare global {
       DATABASE_URL_V2: string;
       JWT_SECRET: string;
       JWT_LIFETIME: string;
+      STRIPE_API_KEY: string;
     }
   }
 }
