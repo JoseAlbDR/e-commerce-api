@@ -93,6 +93,20 @@ export const createOrder = async (req: IOrderRequest, res: Response) => {
     .status(StatusCodes.CREATED)
     .json({ order, clientSecret: paymentIntent.client_secret });
 };
-export const updateOrder = async (_req: Request, res: Response) => {
+export const updateOrder = async (req: IOrderRequest, res: Response) => {
+  const { id: orderId } = req.params;
+  const { paymentIntentId } = req.body;
+
+  const order = await Order.findById(orderId);
+
+  if (!order) throw new NotFoundError(`Order ${orderId} not found`);
+
+  checkPermissions(req.user, order.user);
+
+  order.paymentIntentId = paymentIntentId;
+  order.status = "paid";
+
+  await order.save();
+
   res.send("update order");
 };
