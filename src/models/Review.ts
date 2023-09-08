@@ -1,7 +1,6 @@
-import { IReview } from "../types/reviewsInterfaces";
 import mongoose from "mongoose";
 
-const ReviewSchema = new mongoose.Schema<IReview>(
+const ReviewSchema = new mongoose.Schema(
   {
     rating: {
       type: Number,
@@ -32,20 +31,27 @@ const ReviewSchema = new mongoose.Schema<IReview>(
       required: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    statics: {
+      calculateAverageRating: async function (productId) {
+        console.log(productId);
+      },
+    },
+  }
 );
 
 ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
 
 ReviewSchema.post("save", async function () {
-  console.log("post save hook called");
+  await Review.calculateAverageRating(this.product);
 });
 
 ReviewSchema.post(
   "deleteOne",
   { document: true, query: false },
   async function () {
-    console.log("post remove hook called");
+    await Review.calculateAverageRating(this.product);
   }
 );
 

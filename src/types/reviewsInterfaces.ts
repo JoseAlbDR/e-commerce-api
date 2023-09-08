@@ -1,5 +1,5 @@
 import { Request } from "express";
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 export interface IReview {
   rating: number;
@@ -11,4 +11,8 @@ export interface IReview {
 
 export interface IReviewRequest extends Request {
   body: Omit<IReview, "user">;
+}
+
+export interface ReviewModel extends Model<IReview> {
+  calculateAverageRating(product: mongoose.Types.ObjectId): void;
 }
