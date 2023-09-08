@@ -13,7 +13,7 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY, {
 
 export const getAllOrders = async (_req: Request, res: Response) => {
   const orders = await Order.find({});
-  res.status(StatusCodes.OK).json({ orders });
+  res.status(StatusCodes.OK).json({ orders, count: orders.length });
 };
 export const getSingleOrder = async (req: Request, res: Response) => {
   const { id } = req.params;
