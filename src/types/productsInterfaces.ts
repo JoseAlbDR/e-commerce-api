@@ -16,6 +16,7 @@ export interface IProduct {
   freeShipping: boolean;
   inventory: number;
   averageRating: number;
+  numOfReviews: number;
   user: mongoose.SchemaDefinitionProperty<mongoose.Types.ObjectId>;
 }
 
