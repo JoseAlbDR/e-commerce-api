@@ -87,7 +87,7 @@ export const deleteReview = async (req: Request, res: Response) => {
 
   checkPermissions(req.user, review.user);
 
-  await Review.findByIdAndDelete(review._id);
+  await review.deleteOne();
 
   res.sendStatus(StatusCodes.OK);
 };
