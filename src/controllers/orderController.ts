@@ -108,5 +108,5 @@ export const updateOrder = async (req: IOrderRequest, res: Response) => {
 
   await order.save();
 
-  res.send("update order");
+  res.status(StatusCodes.OK).json({ order });
 };
