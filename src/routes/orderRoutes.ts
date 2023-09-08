@@ -3,6 +3,7 @@ import {
   createOrder,
   getAllOrders,
   getCurrentUserOrders,
+  getSingleOrder,
   updateOrder,
 } from "../controllers/orderController";
 import {
@@ -21,7 +22,7 @@ router.route("/showAllMyOrders").get(authenticateUser, getCurrentUserOrders);
 
 router
   .route("/:id")
-  .post(authenticateUser, createOrder)
+  .get(authenticateUser, getSingleOrder)
   .patch(authenticateUser, updateOrder);
 
 export default router;

@@ -13,5 +13,5 @@ export const createOrder = (_req: Request, res: Response) => {
   res.send("create order");
 };
 export const updateOrder = (_req: Request, res: Response) => {
-  res.send("get all orders");
+  res.send("update order");
 };
