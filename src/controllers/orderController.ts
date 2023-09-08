@@ -5,6 +5,7 @@ import { Product } from "../models/Product";
 import Stripe from "stripe";
 import { Order } from "../models/Order";
 import { StatusCodes } from "http-status-codes";
+import { checkPermissions } from "../utils";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY, {
   apiVersion: "2023-08-16",
@@ -14,8 +15,16 @@ export const getAllOrders = async (_req: Request, res: Response) => {
   const orders = await Order.find({});
   res.status(StatusCodes.OK).json({ orders });
 };
-export const getSingleOrder = async (_req: Request, res: Response) => {
-  res.send("get single order");
+export const getSingleOrder = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const order = await Order.findOne({ _id: id });
+
+  if (!order) throw new NotFoundError(`Order ${id} not found`);
+
+  checkPermissions(req.user, order.user);
+
+  res.status(StatusCodes.OK).json({ order });
 };
 export const getCurrentUserOrders = async (_req: Request, res: Response) => {
   res.send("get current user orders");
