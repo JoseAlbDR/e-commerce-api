@@ -3,7 +3,7 @@
 /build
 jobsdocs.json
 client
-*.js
+
 mockdata
-index.html
+
 docs.json
