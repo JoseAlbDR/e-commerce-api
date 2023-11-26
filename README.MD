@@ -1,6 +1,6 @@
 ## Hosted Project
 
-[E-Commerce API Render URL](https://node-course-e-commerce.onrender.com/)
+[E-Commerce API URL](https://ecommerce.jadero.dev/)
 
 #### Setup Basic Express Server
 
