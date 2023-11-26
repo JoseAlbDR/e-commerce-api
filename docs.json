@@ -24,8 +24,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/auth/login",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/auth/login",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["auth", "login"]
             }
           },
@@ -46,8 +46,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/auth/register",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/auth/register",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["auth", "register"]
             }
           },
@@ -71,8 +71,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/auth/logout",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/auth/logout",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["auth", "logout"]
             }
           },
@@ -89,8 +89,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/users",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/users",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["users"]
             }
           },
@@ -102,8 +102,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/users/64fb4a09c1c578a4a7379a6f",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/users/64fb4a09c1c578a4a7379a6f",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["users", "64fb4a09c1c578a4a7379a6f"]
             }
           },
@@ -115,8 +115,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/users/showMe",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/users/showMe",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["users", "showMe"]
             }
           },
@@ -137,8 +137,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/users/updateUser",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/users/updateUser",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["users", "updateUser"]
             }
           },
@@ -159,8 +159,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/users/updateUserPassword",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/users/updateUserPassword",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["users", "updateUserPassword"]
             }
           },
@@ -177,8 +177,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products"]
             }
           },
@@ -190,8 +190,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products/64facda8674f63b51e720e42",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products/64facda8674f63b51e720e42",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products", "64facda8674f63b51e720e42"]
             }
           },
@@ -203,8 +203,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products/64facda8674f63b51e720e42/reviews",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products/64facda8674f63b51e720e42/reviews",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products", "64facda8674f63b51e720e42", "reviews"]
             }
           },
@@ -225,8 +225,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products"]
             }
           },
@@ -247,8 +247,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products/64facda8674f63b51e720e42",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products/64facda8674f63b51e720e42",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products", "64facda8674f63b51e720e42"]
             }
           },
@@ -260,8 +260,8 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products/64fb5ad7c1c578a4a7379aa2",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products/64fb5ad7c1c578a4a7379aa2",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products", "64fb5ad7c1c578a4a7379aa2"]
             }
           },
@@ -283,8 +283,8 @@
               ]
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/products/uploadImage",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/products/uploadImage",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["products", "uploadImage"]
             }
           },
@@ -301,8 +301,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/reviews",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/reviews",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["reviews"]
             }
           },
@@ -314,8 +314,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/reviews/64facddc674f63b51e720e48",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/reviews/64facddc674f63b51e720e48",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["reviews", "64facddc674f63b51e720e48"]
             }
           },
@@ -336,8 +336,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/reviews",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/reviews",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["reviews"]
             }
           },
@@ -358,8 +358,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/reviews/64fb5b0ac1c578a4a7379ab1",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/reviews/64fb5b0ac1c578a4a7379ab1",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["reviews", "64fb5b0ac1c578a4a7379ab1"]
             }
           },
@@ -371,8 +371,8 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/reviews/64fb5b0ac1c578a4a7379ab1",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/reviews/64fb5b0ac1c578a4a7379ab1",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["reviews", "64fb5b0ac1c578a4a7379ab1"]
             }
           },
@@ -389,8 +389,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/orders",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/orders",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["orders"]
             }
           },
@@ -402,8 +402,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/orders/64fb4967c1c578a4a7379a60",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/orders/64fb4967c1c578a4a7379a60",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["orders", "64fb4967c1c578a4a7379a60"]
             }
           },
@@ -424,8 +424,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/orders",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/orders",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["orders"]
             }
           },
@@ -446,8 +446,8 @@
               }
             },
             "url": {
-              "raw": "https://ecommerce.jadero.dev/orders/64fb4967c1c578a4a7379a60",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/orders/64fb4967c1c578a4a7379a60",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["orders", "64fb4967c1c578a4a7379a60"]
             }
           },
@@ -459,8 +459,8 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://ecommerce.jadero.dev/orders/showAllMyOrders",
-              "host": ["https://ecommerce.jadero.dev"],
+              "raw": "https://ecommerce.jadero.dev/api/v1/orders/showAllMyOrders",
+              "host": ["https://ecommerce.jadero.dev/api/v1"],
               "path": ["orders", "showAllMyOrders"]
             }
           },
